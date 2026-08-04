@@ -1,5 +1,4 @@
 import time
-
 import streamlit as st
 
 st.set_page_config(
@@ -11,35 +10,32 @@ st.set_page_config(
 
 # 2. Custom CSS for Sleek Aesthetics
 st.markdown("""
-    <style>
-    /* Remove padding around main container */
-    .block-container {
-        padding-top: 3rem;
-        padding-bottom: 3rem;
-        max-width: 1100px;
-    }
-    
-    /* Make metric cards pop slightly */
-    [data-testid="stMetricSimpleValue"] {
-        font-family: 'Courier New', monospace;
-        font-weight: bold;
-    }
-    
-    /* Smooth button transitions */
-    .stButton>button {
-        border-radius: 20px;
-        padding: 0.5rem 2rem;
-        transition: all 0.3s ease;
-    }
-    
-    /* Subtitle styling */
-    .hero-subtitle {
-        font-size: 1.2rem;
-        color: #888888;
-        margin-bottom: 2rem;
-    }
-    </style>
-""", unsafe_index=True)
+<style>
+/* Remove padding around main container */
+.block-container {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    max-width: 1100px;
+}
+/* Make metric cards pop slightly */
+[data-testid="stMetricSimpleValue"] {
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+}
+/* Smooth button transitions */
+.stButton>button {
+    border-radius: 20px;
+    padding: 0.5rem 2rem;
+    transition: all 0.3s ease;
+}
+/* Subtitle styling */
+.hero-subtitle {
+    font-size: 1.2rem;
+    color: #888888;
+    margin-bottom: 2rem;
+}
+</style>
+""", unsafe_allow_html=True) # <-- Fixed parameter here
 
 # 3. Sidebar (Minimal Settings)
 with st.sidebar:
@@ -56,7 +52,6 @@ st.divider()
 
 # 5. Core Layout: Grid Matrix
 col1, col2, col3 = st.columns(3)
-
 with col1:
     st.metric(label="Network Pulse", value="98.4 ms", delta="-12.1 ms")
     with st.expander("View Routing Data"):
@@ -80,7 +75,7 @@ tab_analytics, tab_logs, tab_actions = st.tabs(["📊 Analytics", "📄 Activity
 with tab_analytics:
     # A perfectly styled built-in chart
     chart_data = {
-        "efficiency": [72, 74, 78, 81, 85, 88, 91, 94, 96, 98],
+        "efficiency":,
         "latency": [90, 85, 70, 64, 61, 50, 40, 31, 20, 12]
     }
     st.line_chart(chart_data, height=250)
@@ -95,15 +90,14 @@ with tab_logs:
 
 with tab_actions:
     st.write("Trigger micro-interactions below to test interface reactive behavior.")
-    
     col_btn1, col_btn2 = st.columns([1, 4])
     with col_btn1:
         if st.button("Refresh Grid", type="primary"):
             with st.spinner("Reindexing environment..."):
                 time.sleep(1.5)
             st.toast("Grid environment fully synchronized!", icon="⚡")
-            
     with col_btn2:
         if st.button("Simulate System Burst"):
             st.balloons()
+
 
