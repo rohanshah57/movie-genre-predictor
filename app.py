@@ -128,7 +128,7 @@ with col_output:
                 genre = model.classes_[idx]
                 confidence = probabilities[idx]
 
-                metric_col, progress_col = st.columns([1,3])
+                metric_col, progress_col = st.columns([2,3])
 
                 with metric_col:
                     st.markdown(
