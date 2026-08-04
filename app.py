@@ -107,6 +107,3 @@ with tab_actions:
         if st.button("Simulate System Burst"):
             st.balloons()
 
-# 7. Footer
-st.divider()
-st.caption("© 2026 Aura Design Lab. Built using Streamlit core primitive text frameworks.")
