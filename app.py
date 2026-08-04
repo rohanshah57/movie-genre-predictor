@@ -1,9 +1,17 @@
 import time
 import streamlit as st
+import joblib
+import numpy as np
+from scipy.sparse import hstack
+import re
+
+model = joblib.load("models/genre_model.pkl")
+vectorizer = joblib.load("models/tfidf_vectorizer.pkl")
+scaler = joblib.load("models/year_scaler.pkl")
 
 st.set_page_config(
-    page_title="Aura // Minimalist Hub",
-    page_icon="✨",
+    page_title="Movie Genre Predictor",
+    page_icon="🎬",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
@@ -37,67 +45,120 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True) # <-- Fixed parameter here
 
-# 3. Sidebar (Minimal Settings)
-with st.sidebar:
-    st.title("Settings")
-    st.caption("Customize your view")
-    theme_mode = st.toggle("Enable Premium Node Layout", value=True)
-    st.divider()
-    st.info("System Status: Operational")
 
 # 4. Hero Section
-st.title("✨ Project Aura")
-st.markdown("<p class='hero-subtitle'>A hyper-minimal workspace designed for clarity, data composition, and deep work.</p>", unsafe_allow_html=True)
+st.title("🎬 Movie Genre Predictor")
+st.markdown("<p class='hero-subtitle'>A machine learning model designed to predict movie genres based on their plot summaries.</p>", unsafe_allow_html=True)
 st.divider()
 
+
 # 5. Core Layout: Grid Matrix
-col1, col2, col3 = st.columns(3)
-with col1:
-    st.metric(label="Network Pulse", value="98.4 ms", delta="-12.1 ms")
-    with st.expander("View Routing Data"):
-        st.caption("Active nodes routing through US-East edge tunnels.")
+col_input, col_output = st.columns([1.1, 1.0], gap="large")
 
-with col2:
-    st.metric(label="Storage Index", value="41.2 GB", delta="2.4 GB", delta_color="inverse")
-    with st.expander("Storage Optimization"):
-        st.caption("System cache cleared 4 hours ago.")
+with col_input:
+    st.markdown("### 📝 ENTER MOVIE PLOT")
+    
+    # Pre-filled default text matching the prompt image description
+    default_plot = "A disillusioned war veteran embarks on a cross-country journey, forming an unlikely bond with a free-spirited companion. Together, they encounter various people and life-changing experiences that challenge their perspectives on life and freedom."
 
-with col3:
-    st.metric(label="API Gateway Load", value="14.2%", delta="Optimal")
-    with st.expander("Thread Diagnostics"):
-        st.caption("Asynchronous pools running with 0 errors.")
+    
+    user_plot = st.text_area(
+        label="Input description window",
+        value=default_plot,
+        height=180,
+        max_chars=2000,
+        label_visibility="collapsed"
+    )
+    
 
-st.subheader("Live Operational Matrix")
+    release_year = st.number_input(
+        "Release Year",
+        min_value=1900,
+        max_value=2035,
+        value=2020
+    )
 
-# 6. Interactive Placeholder Tabs
-tab_analytics, tab_logs, tab_actions = st.tabs(["📊 Analytics", "📄 Activity Logs", "🛠️ Quick Operations"])
+    predict_btn = st.button(
+        "Predict Genres ✨",
+        use_container_width=True
+    )
 
-with tab_analytics:
-    # A perfectly styled built-in chart
-    chart_data = {
-        "efficiency": [10, 20, 35, 45, 50, 62, 75, 82, 89, 95],
-        "latency": [90, 85, 70, 64, 61, 50, 40, 31, 20, 12]
-    }
-    st.line_chart(chart_data, height=250)
-    st.caption("System efficiency optimization scale plotted over 24-hour cycle runs.")
+with col_output:
+    st.markdown("### 📊 TOP PREDICTED GENRES")
+    st.markdown("<p style='color: #8A8D9F; font-size: 12px; margin-top: -10px;'>Probabilities indicate how well each genre matches the plot.</p>", unsafe_allow_html=True)
+    
+    # Define visualization blocks matching UI cards
+    if predict_btn:
 
-with tab_logs:
-    st.code("""
-[2026-08-04 11:53:21] INFO: Aura kernel sequence initiated.
-[2026-08-04 11:53:22] SUCCESS: Handshake established with remote node cluster.
-[2026-08-04 11:53:25] WARNING: Aesthetic levels exceeding standard thresholds.
-    """, language="bash")
+        if user_plot.strip() == "":
+            st.warning("Please enter a movie description.")
+            st.stop()
 
-with tab_actions:
-    st.write("Trigger micro-interactions below to test interface reactive behavior.")
-    col_btn1, col_btn2 = st.columns([1, 4])
-    with col_btn1:
-        if st.button("Refresh Grid", type="primary"):
-            with st.spinner("Reindexing environment..."):
-                time.sleep(1.5)
-            st.toast("Grid environment fully synchronized!", icon="⚡")
-    with col_btn2:
-        if st.button("Simulate System Burst"):
-            st.balloons()
+        with st.spinner("Analyzing plot..."):
+            time.sleep(0.5)
+
+            # TF-IDF
+            clean_plot = user_plot.lower()
+            clean_plot = re.sub(r"[^a-zA-Z\s]", "", clean_plot)
+
+            text_features = vectorizer.transform([clean_plot])
+
+            # Scale the release year
+            year_feature = scaler.transform([[release_year]])
+
+            # Combine features
+            features = hstack([text_features, year_feature])
+
+            # Get probabilities
+            probabilities = model.predict_proba(features)[0]
+
+            # Sort highest probabilities
+            top3 = np.argsort(probabilities)[-3:][::-1]
+
+            best_idx = top3[0]
+
+            st.success(
+                f"### 🎯 Predicted Genre: {model.classes_[best_idx].title()}"
+            )
+
+            labels = ["🥇", "🥈", "🥉"]
+
+            for rank, idx in enumerate(top3):
+
+                genre = model.classes_[idx]
+                confidence = probabilities[idx]
+
+                metric_col, progress_col = st.columns([1,3])
+
+                with metric_col:
+                    st.markdown(
+                        f"### {labels[rank]} {genre.title()}"
+                    )
+
+                with progress_col:
+                    st.progress(float(confidence))
+                    st.caption(f"{confidence*100:.1f}% confidence")
+    
+    
+
+st.markdown("<br><hr><br>", unsafe_allow_html=True)
+
+# 4. Bottom Value Proposition Grid
+# Render four distinct visual columns to mirror the dashboard value banners
+v_col1, v_col2, v_col3 = st.columns(3, gap="medium")
+
+with v_col1:
+    st.markdown("🤖 **Machine Learning**")
+    st.caption("Trained on thousands of movies using advanced NLP techniques.")
+
+with v_col2:
+    st.markdown("🎯 **Accurate**")
+    st.caption("High-performance model with robust predictions.")
+
+with v_col3:
+    st.markdown("📦 **Multi-Genre**")
+    st.caption("Get the top 3 genres that best match your plot structure.")
+
+
 
 
