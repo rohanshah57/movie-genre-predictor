@@ -75,7 +75,7 @@ tab_analytics, tab_logs, tab_actions = st.tabs(["📊 Analytics", "📄 Activity
 with tab_analytics:
     # A perfectly styled built-in chart
     chart_data = {
-        "efficiency":,
+        "efficiency": [10, 20, 35, 45, 50, 62, 75, 82, 89, 95],
         "latency": [90, 85, 70, 64, 61, 50, 40, 31, 20, 12]
     }
     st.line_chart(chart_data, height=250)
