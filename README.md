@@ -2,8 +2,8 @@
 
 > This is a small project that uses natural language processing and machine learning to predict genres using plot descriptions.
 
-[![Streamlit App](https://img.shields.io/badge/Streamlit-Live%20Demo-FF4B4B?style=for-the-badge&logo=streamlit)]([https://movie-genre-predictor-bhqmrr97dofs5tezac9jmr.streamlit.app/])
-[![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)]([https://github.com/rohanshah57/movie-genre-predictor])
+![Streamlit app link](https://movie-genre-predictor-bhqmrr97dofs5tezac9jmr.streamlit.app/)
+![Github Repo link](https://github.com/rohanshah57/movie-genre-predictor)
 
 ---
 
@@ -13,8 +13,7 @@ The **Movie Genre Predictor** uses natural language processing to take in a movi
 
 The site works with an original or unoriginal plot, and displays a multi-genre classification accompanied with confidence scores.
 
-![App Screenshot](<img width="1257" height="805" alt="genre_predictor" src="https://github.com/user-attachments/assets/44045253-0d13-41d4-8668-85cab2d3ff34" />)
-
+![genre_predictor](https://github.com/user-attachments/assets/44045253-0d13-41d4-8668-85cab2d3ff34)
 ---
 
 ## Key Features
