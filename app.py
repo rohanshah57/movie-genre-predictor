@@ -34,7 +34,7 @@ st.markdown("""
 
     /* 2. Make metric cards pop slightly (Your Selector) */
     [data-testid="stMetricSimpleValue"] {
-        font-family: 'Playfair Display', monospace;
+        font-family: 'Playfair Display', monospace !important;
         font-weight: bold;
         color: #E50914 !important;
         font-size: 2.2rem !important;
@@ -205,12 +205,13 @@ v_col1, v_col2, v_col3 = st.columns(3, gap="medium")
 
 with v_col1:
     st.markdown("**Machine Learning**")
-    st.caption("Trained on thousands of movies using advanced NLP techniques.")
+    st.caption("Analyzed thousands of movie descriptions using TF-IDF.")
 
 with v_col2:
     st.markdown("**Accurate**")
-    st.caption("High-performance model with robust predictions.")
+    st.caption("Achieved a high model accuracy using Logistic Regression.")
 
 with v_col3:
     st.markdown("**Multi-Genre**")
     st.caption("Get the top 3 genres that best match your plot structure.")
+
