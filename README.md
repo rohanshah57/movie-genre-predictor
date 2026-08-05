@@ -1,53 +1,34 @@
 # 🎬 Movie Genre Predictor
 
-> A real-time NLP application that predicts movie genres from plot summaries using Machine Learning.
+> This is a small project that uses natural language processing and machine learning to predict genres using plot descriptions.
 
-[![Streamlit App](https://img.shields.io/badge/Streamlit-Live%20Demo-FF4B4B?style=for-the-badge&logo=streamlit)](YOUR_LIVE_STREAMLIT_APP_LINK_HERE)
-[![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)](YOUR_GITHUB_REPO_LINK_HERE)
-
----
-
-## 🌟 Overview
-
-The **Movie Genre Predictor** leverages natural language processing (NLP) to analyze free-form movie plot descriptions and output the top matching genres alongside model confidence scores. 
-
-Whether you're testing an original screenplay idea or analyzing plot archetypes, this app provides real-time multi-genre classification through a clean, interactive user interface.
-
-![App Screenshot](LINK_TO_YOUR_SCREENSHOT_OR_GIF_HERE)
+[![Streamlit App](https://img.shields.io/badge/Streamlit-Live%20Demo-FF4B4B?style=for-the-badge&logo=streamlit)]([https://movie-genre-predictor-bhqmrr97dofs5tezac9jmr.streamlit.app/])
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)]([https://github.com/rohanshah57/movie-genre-predictor])
 
 ---
 
-## 🚀 Key Features
+## Overview
 
-* **Multi-Genre Probability Scoring:** Displays the top 3 predicted genres along with percentage confidence bars.
-* **Interactive UI:** Built with Streamlit for clean, responsive real-time predictions.
-* **Metadata Inputs:** Accepts release year and plot inputs to evaluate predictions against historical plot trends.
+The **Movie Genre Predictor** uses natural language processing to take in a movie plot description and output the best matching genre. 
 
----
+The site works with an original or unoriginal plot, and displays a multi-genre classification accompanied with confidence scores.
 
-## 🛠️ Tech Stack & Methods
-
-* **Frontend / Hosting:** [Streamlit Cloud](https://streamlit.io/)
-* **Model & ML:** Python, `scikit-learn`, `pandas`, `numpy`
-* **NLP Pipeline:** TF-IDF (Term Frequency-Inverse Document Frequency) Vectorization
-* **Classifier:** Logistic Regression (Multi-label / Multi-class framework)
+![App Screenshot](<img width="1257" height="805" alt="genre_predictor" src="https://github.com/user-attachments/assets/44045253-0d13-41d4-8668-85cab2d3ff34" />)
 
 ---
 
-## 🧠 Machine Learning Pipeline
+## Key Features
 
-1. **Preprocessing:** Cleaned raw plot text by stripping punctuation, converting to lowercase, and handling stop words.
-2. **Feature Extraction:** Vectorized text sequences into sparse matrix representations using **TF-IDF**.
-3. **Model Training:** Fit a **Logistic Regression** classifier to evaluate probability distributions across multiple genre tags.
-4. **Inference Engine:** Transformed incoming web payload into TF-IDF features to output ordered class probabilities.
+* **Multi-Genre Probability Scoring:** Displays the top 3 predicted genres along with percentage confidence.
+* **UI:** Built with Streamlit.
+* **Inputs:** Accepts release year and plot inputs to check predictions against historical plot trends.
 
 ---
 
-## 💻 Local Setup & Installation
+## Methods & Pipeline
 
-To run this project locally on your machine, follow these steps:
-
-### 1. Clone the repository
-```bash
-git clone [https://github.com/rohanshah57/movie-genre-predictor.git](https://github.com/rohanshah57/movie-genre-predictor.git)
-cd movie-genre-predictor
+1. **Preprocessing:** Use Regex to clean the text by removing any punctuation, numbers, and changing upper-case characters to lower-case.
+2. **Feature Extraction:** Vectorize text sequences into sparse matrix representations using **TF-IDF**.
+3. **Model Training:** Fit a **Logistic Regression** classifier to check probability distributions across multiple genre tags.
+4. **Prediction:** Output the top three genres.
+5. **Year:** I added a year input because I detected a correlation between some genres like film-noir and war to the release year. Thus I thought that adding a year input would help the model accuracy for more of the underrepresented genres.
