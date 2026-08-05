@@ -11,7 +11,7 @@ scaler = joblib.load("models/year_scaler.pkl")
 
 st.set_page_config(
     page_title="Movie Genre Predictor",
-    page_icon="(o_o)",
+    page_icon="🎬",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
