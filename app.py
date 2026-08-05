@@ -19,6 +19,8 @@ st.set_page_config(
 st.markdown("""
 
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300;400;600;800&display=swap');
+    
     /* 1. Remove padding around main container (Your Selector) */
     .block-container {
         padding-top: 3rem;
