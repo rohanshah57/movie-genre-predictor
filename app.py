@@ -26,11 +26,7 @@ st.markdown("""
         max-width: 1100px;
     }
 
-    /* Set overall dark background */
-    .stApp {
-        background-color: #0c0d10;
-        color: #ffffff;
-    }
+    
 
     /* 2. Make metric cards pop slightly (Your Selector) */
     [data-testid="stMetricSimpleValue"] {
@@ -214,4 +210,3 @@ with v_col2:
 with v_col3:
     st.markdown("**Multi-Genre**")
     st.caption("Get the top 3 genres that best match your plot structure.")
-
