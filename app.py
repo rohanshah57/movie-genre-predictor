@@ -19,6 +19,11 @@ st.set_page_config(
 st.markdown("""
 
 <style>
+    /* Make st.caption text Red */
+    [data-testid="stCaptionContainer"] {
+        color: #E50914 !important;
+        font-weight: 600 !important;
+    }
     /* 1. IMPORT GOOGLE FONT DIRECTLY */
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 
