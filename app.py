@@ -19,7 +19,23 @@ st.set_page_config(
 st.markdown("""
 
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300;400;600;800&display=swap');
+    /* 1. IMPORT GOOGLE FONT DIRECTLY */
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+    /* 2. FORCE PLAYFAIR DISPLAY ON ALL TEXT / HEADERS */
+    html, body, [class*="css"], .stApp, h1, h2, h3, h4, h5, h6, p, span, div, label {
+        font-family: 'Playfair Display', serif !important;
+    }
+
+    /* 3. MAKE STREAMLIT PROGRESS BARS RED INSTEAD OF BLUE */
+    div[data-testid="stProgressBar"] > div > div {
+        background-color: #E50914 !important;
+    }
+
+    /* Target background track of progress bar */
+    div[data-testid="stProgressBar"] > div {
+        background-color: #232733 !important;
+    }
     
     /* 1. Remove padding around main container (Your Selector) */
     .block-container {
@@ -36,8 +52,8 @@ st.markdown("""
 
     /* 2. Make metric cards pop slightly (Your Selector) */
     [data-testid="stMetricSimpleValue"] {
-        font-family: 'Playfair Display', monospace;
-        font-weight: bold;
+        font-family: 'Playfair Display', monospace !important;
+        font-weight: bold !important;
         color: #E50914 !important;
         font-size: 2.2rem !important;
     }
@@ -207,11 +223,11 @@ v_col1, v_col2, v_col3 = st.columns(3, gap="medium")
 
 with v_col1:
     st.markdown("**Machine Learning**")
-    st.caption("Trained on thousands of movies using advanced NLP techniques.")
+    st.caption("Analyzed thousands of movie descriptions using TF-IDF.")
 
 with v_col2:
     st.markdown("**Accurate**")
-    st.caption("High-performance model with robust predictions.")
+    st.caption("Achieved a high model accuracy using Logistic Regression.")
 
 with v_col3:
     st.markdown("**Multi-Genre**")
